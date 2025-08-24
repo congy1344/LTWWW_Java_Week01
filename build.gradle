@@ -26,6 +26,8 @@ dependencies {
 
   testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+  // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+  implementation("com.fasterxml.jackson.core:jackson-databind:2.19.2")
 }
 
 test {

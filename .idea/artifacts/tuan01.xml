@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="tuan01">
+    <output-path>$PROJECT_DIR$/out/artifacts/tuan01</output-path>
+    <root id="root" />
+  </artifact>
+</component>
