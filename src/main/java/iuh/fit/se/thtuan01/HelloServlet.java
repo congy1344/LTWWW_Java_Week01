@@ -1,49 +1,41 @@
 package iuh.fit.se.thtuan01;
 
 import java.io.*;
-import jakarta.servlet.*;
 import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
 
-@WebServlet(
-        name = "paramServlet",
-        urlPatterns = {"/param"},
-        initParams = {
-                @WebInitParam(name = "defaultUser", value = "Guest")
-        }
-)
 public class HelloServlet extends HttpServlet {
     private String defaultUser;
+    private ServletContext context;
 
     @Override
-    public void init() throws ServletException {
-        defaultUser = getServletConfig().getInitParameter("defaultUser");
+    public void init(ServletConfig config) throws ServletException {
+        defaultUser = config.getInitParameter("defaultUser");
+        context = config.getServletContext();
     }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html;charset=UTF-8");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
 
-        // Lấy context-param
-        ServletContext context = getServletContext();
+        String username = request.getParameter("username");
         String appName = context.getInitParameter("appName");
 
-        PrintWriter out = response.getWriter();
-        out.println("<h2>Xin chào " + defaultUser + "</h2>");
-        out.println("<p>Ứng dụng: " + appName + "</p>");
+        out.println("<!DOCTYPE html>");
+        out.println("<html><head><title>Servlet Result</title></head><body>");
+        out.println("<h1>" + appName + "</h1>");
+        if (username != null && !username.isEmpty()) {
+            out.println("<p>Welcome, " + username + "! (Default: " + defaultUser + ")</p>");
+        } else {
+            out.println("<p>No username provided. Default: " + defaultUser + "</p>");
+        }
+        out.println("<a href='index.jsp'>Back to Form</a>");
+        out.println("</body></html>");
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
-
-        String name = request.getParameter("name");
-        if (name == null || name.isEmpty()) {
-            name = defaultUser;
-        }
-
-        PrintWriter out = response.getWriter();
-        out.println("<h2>Xin chào " + name + "</h2>");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
     }
 }

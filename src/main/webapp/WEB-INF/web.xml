@@ -13,15 +13,15 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>helloServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/hello-servlet</url-pattern>
     </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
 
     <context-param>
         <param-name>appName</param-name>
         <param-value>Demo Jakarta Servlet</param-value>
     </context-param>
-</web-app>
 
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
